@@ -1,0 +1,7 @@
+= form_for(post, html: { class: "navbar-form navbar-left" }) do |f|
+  .form-group
+    = f.file_field :media, multiple: true, class: "media-form"
+    = f.label :media do
+      %span.glyphicon.glyphicon-cloud-upload{"aria-hidden" => "true"}
+      Choose a files...
+  = f.submit "Upload", class: "btn btn-primary"

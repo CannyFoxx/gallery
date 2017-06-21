@@ -1,0 +1,77 @@
+.post-show
+  .container
+    .row
+      .col-md-8
+        .panel.panel-default
+          .panel-body
+            = image_tag @post.media.url(:high), class: "img-responsive"
+            .navigation
+              = link_to @post.next, class: "nav-cursor nav-prev" do
+                &#x2039;
+              = link_to @post.prev, class: "nav-cursor nav-next" do
+                &#x203a;
+          .panel-footer
+            .row
+              .col-md-6
+                %p
+                  %b Date:
+                  = @post.date.strftime("%d.%m.%Y %l:%M%p")
+              .col-md-6
+                %p 
+                  %b Place: 
+                  = @post.address || "unknown"
+            .btn-group.btn-group-lg.btn-group-justified{role: 'group', 'aria-label': '...'}
+              = link_to @post.media.url, class: "btn btn-inverse ", target: "_blank" do
+                %span.glyphicon.glyphicon-resize-full
+                Full size
+              - if @post.gps
+                = link_to "https://maps.google.com/?q=#{@post.latitude},#{@post.longitude}", class: "btn btn-inverse  geotag", target: "_blank" do
+                  %span.glyphicon.glyphicon-map-marker
+                  Location
+              = link_to @post, class: "btn btn-inverse " do
+                %span.glyphicon.glyphicon-share-alt
+                Share
+
+            #map-cover{style: "display:none;"}
+              #map
+
+      .col-md-4
+        .well
+          #disqus_thread
+          %noscript
+            Please enable JavaScript to view the
+            %a{href: "https://disqus.com/?ref_noscript"}
+              comments powered by Disqus.
+
+:javascript
+  var ready = function () {
+    var disqus_config = function () {
+    this.page.url = "#{post_url(@post)}";
+    this.page.identifier = "#{@post.id}";
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gallery-3.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+
+    $( ".geotag" ).click(function(e) {
+      $( "#map-cover" ).toggle( "slow", function() {
+        mapbuilder = function() {
+          handler = Gmaps.build('Google');
+          handler.buildMap({ internal: {id: 'map'}, provider: {zoom: 15, center: new google.maps.LatLng(#{@post.latitude || 0}, #{@post.longitude || 0})} }, function(){ 
+            markers = handler.addMarkers([{lat: #{@post.latitude || 0}, lng: #{@post.longitude || 0}}]);
+            handler.fitMapToBounds();
+          });
+        };
+        $(document).on('page:load', mapbuilder);
+        $(document).ready(mapbuilder);
+      });
+     e.preventDefault();
+    });
+  }
+
+  $(document).ready(ready);
+  $(document).on('page:load', ready);

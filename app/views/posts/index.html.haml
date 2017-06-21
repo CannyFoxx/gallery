@@ -1,0 +1,32 @@
+.post-index
+  .row#posts
+    - @posts.each do |post|
+      .col-md-2{id: "#{post.id}"}
+        = link_to post do
+          = image_tag post.media.url(:medium), class: [("hidden-entry" if post.hidden)]
+
+        - if admin_signed_in?
+          .edit-bar
+            = link_to(post_path(post, post: {hidden: (post.hidden ? false : true)}), method: :put, remote: true, class: "update-link") do
+              %span.glyphicon.glyphicon-eye-open
+            = link_to(post, method: :delete, remote: true, class: 'remove-link') do
+              %span.glyphicon.glyphicon-remove
+
+  = paginate @posts
+
+- if admin_signed_in?
+  :javascript
+    $( "#multiple-edit" ).click(function(e) {
+      $( ".edit-bar" ).toggle();
+      e.preventDefault();
+    });
+
+    $( document.body ).on("click", ".update-link", function() {
+      $( this ).parents( '.col-md-2' ).find( "img" ).toggleClass( "hidden-entry" );
+    });
+
+    $( document.body ).on("click", ".remove-link", function() {
+      $( this ).parents( '.col-md-2' ).hide(function() {
+        $( this ).remove();
+      });
+    });

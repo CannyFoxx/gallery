@@ -1,0 +1,62 @@
+!!!
+%html
+  %head
+    %title= @title || "Gallery"
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", name: "viewport"}
+    %link{href: "/favicon.png", rel: "icon", type: "image/png"}
+    = csrf_meta_tags
+    %script
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %script{src: "//maps.google.com/maps/api/js?key=AIzaSyDGHzc5dLFATtJXX7w67EqmcR77wrYYZ6E", 'data-turbolinks-track': false}
+
+  %body
+    - if flash[:notice] or flash[:alert]
+      .alert.alert-dismissible#info{role: "alert",  class: (flash[:notice] ? "alert-info" : "alert-warning")}
+        %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
+          %span{"aria-hidden" => "true"} &#215;
+        = flash[:notice] || flash[:alert]
+
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#hidden-menu", "data-toggle" => "collapse", type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to root_path, "data-turbolinks" =>"false", class: "navbar-brand" do
+            Los Angeles
+            %span.badge= "&beta;eta".html_safe
+        #hidden-menu.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to posts_path, "data-turbolinks" =>"false" do
+                %span.glyphicon.glyphicon-picture{"aria-hidden" => "true"}
+                Photos
+            %li
+              = link_to map_path do
+                %span.glyphicon.glyphicon-map-marker{"aria-hidden" => "true"}
+                Photos on map
+            %li
+              = link_to about_path do
+                %span.glyphicon.glyphicon-globe{"aria-hidden" => "true"}
+                About
+          %ul.nav.navbar-nav.navbar-right
+            - unless admin_signed_in?
+              %li
+                = link_to new_admin_session_path do
+                  %span.glyphicon.glyphicon-lock{"aria-hidden" => "true"}
+            - else
+              - if params[:action] == "index"
+                = render 'form', post: @post
+                %li
+                  %a#multiple-edit{href: '#', "data-turbolinks" => "false"}
+                    %span.glyphicon.glyphicon-pencil{"aria-hidden" => "true"}
+                    Edit gallery
+              %li
+                = link_to destroy_admin_session_path, method: :delete do
+                  %span.glyphicon.glyphicon-log-out{"aria-hidden" => "true"}
+                  Log Out
+    = yield
