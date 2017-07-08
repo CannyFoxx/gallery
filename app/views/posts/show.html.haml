@@ -1,5 +1,5 @@
 .post-show
-  .container
+  .container-fluid
     .row
       .col-md-8
         .panel.panel-default
@@ -20,17 +20,15 @@
                 %p 
                   %b Place: 
                   = @post.address || "unknown"
+
             .btn-group.btn-group-lg.btn-group-justified{role: 'group', 'aria-label': '...'}
               = link_to @post.media.url, class: "btn btn-inverse ", target: "_blank" do
                 %span.glyphicon.glyphicon-resize-full
                 Full size
               - if @post.gps
-                = link_to "https://maps.google.com/?q=#{@post.latitude},#{@post.longitude}", class: "btn btn-inverse  geotag", target: "_blank" do
+                = link_to "https://maps.google.com/?q=#{@post.latitude},#{@post.longitude}", class: "btn btn-inverse geotag", target: "_blank" do
                   %span.glyphicon.glyphicon-map-marker
                   Location
-              = link_to @post, class: "btn btn-inverse " do
-                %span.glyphicon.glyphicon-share-alt
-                Share
 
             #map-cover{style: "display:none;"}
               #map
@@ -42,6 +40,17 @@
             Please enable JavaScript to view the
             %a{href: "https://disqus.com/?ref_noscript"}
               comments powered by Disqus.
+
+  %footer.footer
+    .container
+      %div{style: "text-align: center; padding-top: 10px; color: #9d9d9d;"}
+        %a{rel: "license", href: "http://creativecommons.org/licenses/by-sa/4.0/"}
+          %img{alt: "Creative Commons License", style: "border-width:0", src: "https://i.creativecommons.org/l/by-sa/4.0/88x31.png"}
+        %p
+          This work is licensed under a
+          %a{rel: "license", href: "http://creativecommons.org/licenses/by-sa/4.0/"}
+            Creative Commons Attribution-ShareAlike 4.0 International License
+
 
 :javascript
   var ready = function () {
@@ -71,6 +80,7 @@
       });
      e.preventDefault();
     });
+
   }
 
   $(document).ready(ready);

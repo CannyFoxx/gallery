@@ -43,7 +43,7 @@
 }
 
 .post-show {
-	padding-top: 10px;
+	padding-top: 5px;
 	padding-bottom: 10px;
 
 	.panel {
@@ -58,8 +58,10 @@
 			position: relative;
 
 			img {
-				border-radius: 4px 4px 0 0;
-				max-height: 750px;
+				//border-radius: 4px 4px 0 0;
+				max-height: 600px;
+				display: block;
+				margin: 0 auto;
 			}
 
 			img:hover + .navigation .nav-cursor { opacity: 0.5; }
@@ -138,9 +140,14 @@
 	}
 
 	.well {
-		min-height:840px;
+		min-height: 600px;
 		background-image: none;
 		background-color: #3b3b3b;
+	}
+
+	.footer {
+		width: 100%;
+		height: 75px;
 	}
 }
 

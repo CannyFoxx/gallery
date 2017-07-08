@@ -9,7 +9,7 @@
     %script
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    %script{src: "//maps.google.com/maps/api/js?key=AIzaSyDGHzc5dLFATtJXX7w67EqmcR77wrYYZ6E", 'data-turbolinks-track': false}
+    %script{type: "text/javascript", src: "https://maps.google.com/maps/api/js?key=AIzaSyDGHzc5dLFATtJXX7w67EqmcR77wrYYZ6E", 'data-turbolinks-track': false}
 
   %body
     - if flash[:notice] or flash[:alert]
@@ -27,8 +27,7 @@
             %span.icon-bar
             %span.icon-bar
           = link_to root_path, "data-turbolinks" =>"false", class: "navbar-brand" do
-            Los Angeles
-            %span.badge= "&beta;eta".html_safe
+            Gallery - Los Angeles
         #hidden-menu.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li

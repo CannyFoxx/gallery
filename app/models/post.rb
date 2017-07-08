@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
-  has_attached_file :media, styles: { original: {convert_options: '-auto-orient'}, thumb: "160x160#", medium: "640x640#", high: "1024x1024#" }, default_url: "/images/:style/missing.png"
+  require 'exifr/jpeg'
+  has_attached_file :media, styles: { original: {convert_options: '-auto-orient'}, thumb: "160x160#", medium: "640x640#", high: "1024x1024>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :media, content_type: /\Aimage\/.*\z/
 
   after_validation :extract_media_data, :reverse_geocode, on: :create
