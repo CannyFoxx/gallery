@@ -3,7 +3,7 @@ lock "3.8.2"
 
 set :application, "gallery"
 
-set :repo_url, "git@bitbucket.org:cannyfoxx/gallery.git"
+set :repo_url, "git@github.com:CannyFoxx/gallery.git"
 set :branch, "stable"
 
 set :deploy_to, "/www/la.ignatovich.me"
