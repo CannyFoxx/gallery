@@ -17,6 +17,7 @@
 .byebug_history
 
 /config/database.yml
+/config/secrets.yml
 /public/system
 passenger.3000.pid
 passenger.3000.pid.lock

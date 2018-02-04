@@ -15,7 +15,6 @@
 ```
 [[ -s /usr/local/rvm/scripts/rvm ]] && source /usr/local/rvm/scripts/rvm
 
-export GALLERY_SECRET_KEY_BASE=...
 ```
 
 2. Create `.profile` file in **nginx**'s user home folder and put this code:
@@ -26,6 +25,13 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 ```
+
+3. Copy `config/secrets.yml.example` to `config/secrets.yml` and put new secret phrase:
+```
+production:
+  secret_key_base: HARD_PASSWORD
+```
+
 
 ## Database creation
 Before next step make copy file `database.yml.example` to `database.yml` and write your settings.
