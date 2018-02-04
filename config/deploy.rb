@@ -11,7 +11,7 @@ set :deploy_to, "/www/la.ignatovich.me"
 set :format, :airbrussh
 set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
-append :linked_files, "config/database.yml"
+append :linked_files, "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/files", "public/system"
 set :keep_releases, 2
 

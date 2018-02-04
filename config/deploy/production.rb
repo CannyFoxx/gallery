@@ -1,1 +1,1 @@
-server "vm2.server.cannyfoxx.me", port:12222, user: "nginx", roles: %w{app db web}
+server "127.0.0.1", port:12222, user: "nginx", roles: %w{app db web}
