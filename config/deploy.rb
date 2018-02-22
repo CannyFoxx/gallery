@@ -1,12 +1,12 @@
 # config valid only for current version of Capistrano
-lock "3.8.2"
+lock "3.10.1"
 
 set :application, "gallery"
 
 set :repo_url, "git@github.com:CannyFoxx/gallery.git"
 set :branch, "stable"
 
-set :deploy_to, "/www/la.ignatovich.me"
+set :deploy_to, "/home/nginx/www/la.ignatovich.me"
 
 set :format, :airbrussh
 set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
